@@ -3,7 +3,7 @@ import { useRegisterMutation } from "../../../../hooks/useQuery/useQueryAction/i
 
 const Register = () => {
   const input_style = "h-[40px] mt-2 border-[#46A358] hover:border-[#46A358] focus:border-[#46A358]";
-  const { mutate, isLoading } = useRegisterMutation();
+  const { mutate, isPending } = useRegisterMutation();
 
   const onRegister = (values: { email: string; password: string; confirmPassword: string }) => {
     if (values.password !== values.confirmPassword) {
@@ -61,7 +61,7 @@ const Register = () => {
           type="primary"
           htmlType="submit"
           className="bg-[#46A358] w-full h-[40px] rounded-md font-medium hover:bg-[#3d8b4b] transition-colors"
-          loading={isLoading}
+          loading={isPending}
         >
           Register
         </Button>
