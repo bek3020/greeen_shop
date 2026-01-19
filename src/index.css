@@ -1,0 +1,5 @@
+@import "tailwindcss";
+
+@theme{
+  --color-rang:#00800043;
+}
