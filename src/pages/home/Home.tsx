@@ -2,8 +2,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay } from "swiper/modules";
 
 
-import 'swiper/css';
-import 'swiper/css/pagination';
+
 
 import Header from "../../components/Header/Header";
 import Bannrer from "../../assets/img/01 1.png";
