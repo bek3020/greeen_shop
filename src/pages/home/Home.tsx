@@ -1,63 +1,51 @@
-import { Swiper, SwiperSlide } from 'swiper/react';
-
-import '../../../node_modules/swiper/swiper.css';
-import '../../../node_modules/swiper/modules/pagination.css';
 
 import BannerImg from "../../assets/img/01 1.png";
 import Header from '../../components/Header/Header';
 
-const Banner = () => {
+const Home = () => {
   return (
-    <section className="px-4 md:px-10 mt-6">
+    <section className="max-w-[1205px] mx-auto px-4 mt-6">
       <Header />
 
-      <Swiper
-        pagination={{ clickable: true }}
-        autoplay={{ delay: 4000 }}
-        loop={true}
-        className="rounded-3xl overflow-hidden"
-      >
-        {[1, 2, 3].map((item) => (
-          <SwiperSlide key={item}>
-            <div className="bg-[#F5F5F5] flex flex-col md:flex-row items-center justify-between p-8 md:p-20">
-              
-              <div className="max-w-xl text-center md:text-left">
-                <p className="text-gray-600 uppercase tracking-[3px] text-xs font-medium mb-3">
-                  Welcome to Greenshop
-                </p>
+      <div className="bg-[#F5F5F5]/80 rounded-3xl mt-5 relative overflow-hidden">
+        <div className="flex flex-col md:flex-row items-center justify-between p-5 sm:p-10 md:p-16 lg:p-20 min-h-[450px]">
+          <div className="w-full max-w-xl text-center md:text-left order-2 md:order-1 mt-6 md:mt-0">
+            <p className="text-gray-600 uppercase tracking-[2px] text-[10px] md:text-xs font-semibold mb-2">
+              Welcome to Greenshop
+            </p>
 
-                <h1 className="text-4xl md:text-7xl font-black text-[#3D3D3D] leading-[1.1] mb-5">
-                  LET&apos;S MAKE A <br />
-                  <span className="text-[#46A358]">BETTER PLANET</span>
-                </h1>
+            <h1 className="text-[26px] xs:text-[32px] sm:text-5xl md:text-6xl lg:text-[70px] font-black text-[#3D3D3D] leading-[1.1] mb-3 md:mb-5">
+              LET&apos;S MAKE A <br />
+              <span className="text-[#46A358]">BETTER PLANET</span>
+            </h1>
 
-                <p className="text-gray-500 text-sm md:text-base leading-relaxed mb-10 max-w-sm">
-                  We are an online plant shop offering a wide range of cheap and trendy plants.
-                </p>
+            <p className="text-gray-500 text-[11px] sm:text-[13px] md:text-base leading-relaxed mb-6 md:mb-10 max-w-[450px] mx-auto md:mx-0">
+              We are an online plant shop offering a wide range of cheap and trendy plants. 
+              Use our plants to create an unique Urban Jungle. Order your favorite plants!
+            </p>
 
-                <button className="bg-[#46A358] text-white px-8 py-3 rounded-lg font-bold hover:shadow-lg transition-all uppercase text-sm">
-                  Shop Now
-                </button>
-              </div>
+            <button className="bg-[#46A358] text-white px-6 py-2.5 md:px-8 md:py-3 rounded-md font-bold hover:bg-[#3b8a4a] transition-all uppercase text-[12px] md:text-sm active:scale-95 shadow-md">
+              Shop Now
+            </button>
+          </div>
 
-              <div className="relative mt-10 md:mt-0">
-                <img
-                  src={BannerImg}
-                  alt="Plant"
-                  className="w-[300px] md:w-[450px] object-contain"
-                />
-                <img
-                  src={BannerImg}
-                  alt="Small Plant"
-                  className="absolute bottom-5 left-0 w-20 md:w-32 opacity-80 hidden md:block"
-                />
-              </div>
-            </div>
-          </SwiperSlide>
-        ))}
-      </Swiper>
+          <div className="w-full md:w-auto relative order-1 md:order-2 flex justify-center items-center">
+            <img
+              src={BannerImg}
+              alt="Small Plant"
+              className="absolute bottom-4 -left-6 w-16 md:w-32 opacity-80 hidden sm:block"
+            />
+            
+            <img
+              src={BannerImg}
+              alt="Main Plant"
+              className="w-[180px] xs:w-[230px] sm:w-[320px] md:w-[400px] lg:w-[460px] object-contain relative z-10"
+            />
+          </div>
+        </div>
+      </div>
     </section>
   );
 };
 
-export default Banner;
+export default Home;
