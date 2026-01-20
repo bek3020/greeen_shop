@@ -95,7 +95,7 @@ const dispatch = useReduxDispatch()
               <button className="cursor-pointer hover:text-green-500  transition-colors duration-300">
                 <i className="fa-solid fa-cart-shopping"></i>
               </button>
-              <button className="flex items-center gap-2 cursor-pointer bg-green-600  text-white px-4 py-2 rounded-md w-[100px] h-[35px] relative">
+              <button onClick={()=>dispatch(setAuthorizationModalVisiblity())}  className="flex items-center gap-2 cursor-pointer bg-green-600  text-white px-4 py-2 rounded-md w-[100px] h-[35px] relative">
                 <i className="fa-solid fa-arrow-right-to-bracket"></i>
                 <span className="font-semibold">Login</span>
               </button>
