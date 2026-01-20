@@ -12,7 +12,7 @@ const Header = () => {
   const closeDrawer = () => setDrawerOpen(false)
 const dispatch = useReduxDispatch()
   return (
-    <div className="py-5 border-b border-[#00800043] mb-10">
+    <div className="py-5 border-b border-[#00800043]  mb-10">
       <div className="max-w-[1205px] mx-auto px-4">
         <div className="flex items-center justify-between">
           <img src={Logo} alt="Logo" className="h-8" />
