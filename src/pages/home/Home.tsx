@@ -11,7 +11,7 @@ import Bannrer from "../../assets/img/01 1.png";
 const banners = [
   {
     subtitle: "WELCOME TO GREENSHOP",
-    title: "LET'S MAKE A BETTER ",
+    title: "LET'S MAKE A BETTE",
     titleGreen: "PLANET",
     desc: "We are an online plant shop offering a wide range of cheap and trendy plants. Use our plants to create an unique Urban Jungle. Order your favorite plant!",
     image: Bannrer,
