@@ -6,7 +6,6 @@ import { useReduxDispatch } from "../../useRedux";
 import { setAuthorizationModalVisiblity } from "../../../redux/modol-store";
 import toast from "react-hot-toast";
 import type { AxiosError } from "axios";
-import { getUser } from "../../../redux/user-slice";
 export const useLoginMutation = () => {
     const notify = notificationApi()
     const axios = useAxios();
@@ -17,10 +16,8 @@ export const useLoginMutation = () => {
         onSuccess: (data) => {
             notify("login")
             const { token, user } = data
-
             Cookies.set("token" , token)
             Cookies.set("user", JSON.stringify(user))
-            dispatch(getUser(user))
             dispatch(setAuthorizationModalVisiblity())
         },
      onError: (error) => {

@@ -1,16 +1,13 @@
-import { useReduxSelector } from "../../hooks/useRedux";
-import AuthorizationModal from "./authorization";
+import { useReduxSelector } from "../../hooks/useRedux"
+import AuthorizationModal from "./authorization"
 
 const Modol = () => {
-  const { authorizationModalVisiblity } = useReduxSelector(
-    (state) => state.modal
-  );
-
+      const {authorizationModalVisiblity} = useReduxSelector(state => state.modalSlice)
   return (
-    <>
-      {authorizationModalVisiblity && <AuthorizationModal />}
+      <>
+        {authorizationModalVisiblity && <AuthorizationModal/>}
     </>
-  );
-};
+  )
+}
 
-export default Modol;
+export default Modol
