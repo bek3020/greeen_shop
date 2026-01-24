@@ -1,14 +1,39 @@
 import { useMutation } from "@tanstack/react-query";
 import { useAxios } from "../../useAxios/useAxios";
-
+import { notificationApi } from "../../../generic/noficationApi";
+import Cookies from "js-cookie"
+import { useReduxDispatch } from "../../useRedux";
+import { setAuthorizationModalVisiblity } from "../../../redux/modol-store";
+import toast from "react-hot-toast";
+import type { AxiosError } from "axios";
+import { getUser } from "../../../redux/user-slice";
 export const useLoginMutation = () => {
+    const notify = notificationApi()
     const axios = useAxios();
+    const dispatch = useReduxDispatch()
     return useMutation({
         mutationKey: ["login"],
         mutationFn: (data: object) => axios({ url: "user/sign-in", method: "POST", body: data }),
         onSuccess: (data) => {
-            console.log(data);
+            notify("login")
+            const { token, user } = data
+
+            Cookies.set("token" , token)
+            Cookies.set("user", JSON.stringify(user))
+            dispatch(getUser(user))
+            dispatch(setAuthorizationModalVisiblity())
         },
+     onError: (error) => {
+  const axiosError = error as AxiosError<{ message: string }>;
+  const message = axiosError.response?.data?.message || "Noma'lum xatolik yuz berdi";
+
+  if (axiosError.response?.status === 409) {
+    toast.error(`Xatolik: ${message}`); 
+  } else {
+    toast.error(message);
+  }
+}
+
     });
 };
 

@@ -3,6 +3,7 @@ import React from 'react'
 import Modol from '../../components/moodels/Modol';
 import { Provider } from 'react-redux';
 import { store } from '../../redux';
+import { Toaster } from 'react-hot-toast';
 
 const ProviderConfig = ({ children }: { children: React.ReactNode }) => {
     const queryClinemt = new QueryClient();
@@ -11,7 +12,8 @@ const ProviderConfig = ({ children }: { children: React.ReactNode }) => {
           <Provider store={store }>
           <QueryClientProvider client={queryClinemt}>
               {children}
-              <Modol/>
+                  <Modol />
+                  <Toaster/>
           </QueryClientProvider>
           </Provider>
       </>

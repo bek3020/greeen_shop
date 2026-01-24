@@ -1,6 +1,7 @@
 
 import BannerImg from "../../assets/img/01 1.png";
 import Header from '../../components/Header/Header';
+import Catigoriy from "../catigoriy/Catigoriy";
 
 const Home = () => {
   return (
@@ -44,6 +45,7 @@ const Home = () => {
           </div>
         </div>
       </div>
+      <Catigoriy/>
     </section>
   );
 };

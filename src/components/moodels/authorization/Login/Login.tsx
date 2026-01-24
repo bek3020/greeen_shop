@@ -1,6 +1,5 @@
 import { Form, Input } from "antd";
-import { FcGoogle } from "react-icons/fc"; // Google uchun rangli ikonka
-import { FaFacebook } from "react-icons/fa"; // Facebook uchun ikonka
+import { FcGoogle } from "react-icons/fc"; 
 import { useLoginMutation } from "../../../../hooks/useQuery/useQueryAction";
 
 const Login = () => {
@@ -9,12 +8,14 @@ const Login = () => {
 
   const onAuthGoogleItem = () => {
     console.log("Google orqali kirish bosildi");
-    };
-    const {mutate ,isPending} = useLoginMutation()
-    const login = (e: { email: string, password: string }) => {
-    
-mutate(e)
-}
+  };
+
+  const { mutate, isPending } = useLoginMutation();
+
+  const login = (values: { email: string; password: string }) => {
+    mutate(values);
+  };
+
   return (
     <div className="w-4/5 m-auto">
       <div className="mt-5">
@@ -60,7 +61,7 @@ mutate(e)
             type="submit"
             className="bg-[#46A358] w-full mt-4 text-white h-[40px] rounded-md font-medium hover:bg-[#3d8b4b] transition-colors"
           >
-            {isPending? "loading....": "Login"}
+            {isPending ? "Loading..." : "Login"}
           </button>
         </Form>
 
@@ -76,11 +77,6 @@ mutate(e)
           <div onClick={onAuthGoogleItem} className={icon_style}>
             <FcGoogle size={20} />
             <span className="text-[13px] text-[#3D3D3D] font-medium">Login with Google</span>
-          </div>
-
-          <div className={icon_style}>
-            <FaFacebook size={20} className="text-[#1877F2]" />
-            <span className="text-[13px] text-[#3D3D3D] font-medium">Login with Facebook</span>
           </div>
         </div>
       </div>
