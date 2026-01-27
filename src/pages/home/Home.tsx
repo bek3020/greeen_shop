@@ -1,7 +1,6 @@
-
 import BannerImg from "../../assets/img/01 1.png";
-import Header from '../../components/Header/Header';
-import Catigoriy from "../catigoriy/Catigoriy";
+import Dashboder from "../../components/dashbord";
+import Header from "../../components/Header/Header";
 
 const Home = () => {
   return (
@@ -21,8 +20,9 @@ const Home = () => {
             </h1>
 
             <p className="text-gray-500 text-[11px] sm:text-[13px] md:text-base leading-relaxed mb-6 md:mb-10 max-w-[450px] mx-auto md:mx-0">
-              We are an online plant shop offering a wide range of cheap and trendy plants. 
-              Use our plants to create an unique Urban Jungle. Order your favorite plants!
+              We are an online plant shop offering a wide range of cheap and
+              trendy plants. Use our plants to create an unique Urban Jungle.
+              Order your favorite plants!
             </p>
 
             <button className="bg-[#46A358] text-white px-6 py-2.5 md:px-8 md:py-3 rounded-md font-bold hover:bg-[#3b8a4a] transition-all uppercase text-[12px] md:text-sm active:scale-95 shadow-md">
@@ -36,7 +36,7 @@ const Home = () => {
               alt="Small Plant"
               className="absolute bottom-4 -left-6 w-16 md:w-32 opacity-80 hidden sm:block"
             />
-            
+
             <img
               src={BannerImg}
               alt="Main Plant"
@@ -45,7 +45,7 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <Catigoriy/>
+      <Dashboder />
     </section>
   );
 };

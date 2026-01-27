@@ -1,16 +1,16 @@
-import { useState } from 'react'
-import { NavLink } from 'react-router-dom'
-import { Drawer, Button } from 'antd'
-import Logo from '../../assets/img/logo.png'
-import { useReduxDispatch } from '../../hooks/useRedux'
-import { setAuthorizationModalVisiblity } from '../../redux/modol-store'
+import { useState } from "react";
+import { NavLink } from "react-router-dom";
+import { Drawer, Button } from "antd";
+import Logo from "../../assets/img/logo.png";
+import { useReduxDispatch } from "../../hooks/useRedux";
+import { setAuthorizationModalVisiblity } from "../../redux/modol-store";
 
 const Header = () => {
-  const [drawerOpen, setDrawerOpen] = useState(false)
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
-  const showDrawer = () => setDrawerOpen(true)
-  const closeDrawer = () => setDrawerOpen(false)
-  const dispatch = useReduxDispatch()
+  const showDrawer = () => setDrawerOpen(true);
+  const closeDrawer = () => setDrawerOpen(false);
+  const dispatch = useReduxDispatch();
 
   return (
     <div className="py-5 border-b border-[#00800043]  mb-10">
@@ -22,7 +22,7 @@ const Header = () => {
             <NavLink
               to="/"
               className={({ isActive }) =>
-                isActive ? 'text-green-500 font-bold' : 'text-gray-700'
+                isActive ? "text-green-500 font-bold" : "text-gray-700"
               }
             >
               Home
@@ -30,7 +30,7 @@ const Header = () => {
             <NavLink
               to="/blog"
               className={({ isActive }) =>
-                isActive ? 'text-green-500 font-bold' : 'text-gray-700'
+                isActive ? "text-green-500 font-bold" : "text-gray-700"
               }
             >
               Blog
@@ -44,7 +44,10 @@ const Header = () => {
             <button className="hover:text-green-500 transition-colors duration-300">
               <i className="fa-solid fa-cart-shopping"></i>
             </button>
-            <button onClick={()=>dispatch(setAuthorizationModalVisiblity())} className="flex items-center gap-2 bg-green-600 text-white px-4 py-2 rounded-md w-[100px] h-[35px] relative">
+            <button
+              onClick={() => dispatch(setAuthorizationModalVisiblity())}
+              className="flex items-center gap-2 bg-green-600 text-white px-4 py-2 rounded-md w-[100px] h-[35px] relative"
+            >
               <i className="fa-solid fa-arrow-right-to-bracket"></i>
               <span className="font-semibold">Login</span>
             </button>
@@ -74,7 +77,9 @@ const Header = () => {
               to="/"
               onClick={closeDrawer}
               className={({ isActive }) =>
-                isActive ? 'text-green-500 font-bold block' : 'text-gray-700 block'
+                isActive
+                  ? "text-green-500 font-bold block"
+                  : "text-gray-700 block"
               }
             >
               Home
@@ -83,7 +88,9 @@ const Header = () => {
               to="/blog"
               onClick={closeDrawer}
               className={({ isActive }) =>
-                isActive ? 'text-green-500 font-bold block' : 'text-gray-700 block'
+                isActive
+                  ? "text-green-500 font-bold block"
+                  : "text-gray-700 block"
               }
             >
               Blog
@@ -96,7 +103,10 @@ const Header = () => {
               <button className="cursor-pointer hover:text-green-500  transition-colors duration-300">
                 <i className="fa-solid fa-cart-shopping"></i>
               </button>
-              <button onClick={()=>dispatch(setAuthorizationModalVisiblity())}  className="flex items-center gap-2 cursor-pointer bg-green-600  text-white px-4 py-2 rounded-md w-[100px] h-[35px] relative">
+              <button
+                onClick={() => dispatch(setAuthorizationModalVisiblity())}
+                className="flex items-center gap-2 cursor-pointer bg-green-600  text-white px-4 py-2 rounded-md w-[100px] h-[35px] relative"
+              >
                 <i className="fa-solid fa-arrow-right-to-bracket"></i>
                 <span className="font-semibold">Login</span>
               </button>
@@ -105,7 +115,7 @@ const Header = () => {
         </Drawer>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;

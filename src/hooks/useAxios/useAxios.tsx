@@ -8,10 +8,7 @@ interface AxiosType {
 }
 
 export const useAxios = () => {
-  // Environment o'zgaruvchisini olib kelamiz
   const baseUrl = import.meta.env.VITE_API_URL;
-
-  // Agar baseUrl aniqlanmasa, konsolga ogohlantirish chiqaramiz
   if (!baseUrl) {
     console.error(
       "API bazaviy URL aniqlanmadi! Iltimos, .env faylda VITE_API_URL ni to'g'ri sozlang."
@@ -33,7 +30,6 @@ export const useAxios = () => {
     })
       .then((res) => res.data.data) // serverdan faqat data maydonini qaytaramiz
       .catch((error) => {
-  // Agar server javobi bo'lsa, undagi ma'lumotni chiqaramiz
   if (error.response) {
     console.error("Serverdan xatolik:", error.response.data);
   } else if (error.request) {
