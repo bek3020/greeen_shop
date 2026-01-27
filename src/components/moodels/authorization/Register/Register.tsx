@@ -3,9 +3,11 @@ import { useRegisterMutation } from "../../../../hooks/useQuery/useQueryAction/i
 import { FcGoogle } from "react-icons/fc";
 
 const Register = () => {
-  const input_style = "h-[40px] mt-2 border-[#46A358] hover:border-[#46A358] focus:border-[#46A358]";
+  const input_style =
+    "h-[40px] mt-2 border-[#46A358] hover:border-[#46A358] focus:border-[#46A358]";
   const { mutate, isPending } = useRegisterMutation();
-  const icon_style = "border h-[40px] rounded-md flex items-center justify-center gap-3 mb-4 cursor-pointer hover:bg-gray-50 transition-all";
+  const icon_style =
+    "border h-[40px] rounded-md flex items-center justify-center gap-3 mb-4 cursor-pointer hover:bg-gray-50 transition-all";
 
   const onAuthGoogleItem = () => {
     console.log("Google orqali kirish bosildi");
@@ -23,11 +25,11 @@ const Register = () => {
       return;
     }
     // name va surname ni ham yuboramiz
-    mutate({ 
-      name: values.name, 
-      surname: values.surname, 
-      email: values.email, 
-      password: values.password 
+    mutate({
+      name: values.name,
+      surname: values.surname,
+      email: values.email,
+      password: values.password,
     });
   };
 
@@ -35,7 +37,6 @@ const Register = () => {
     <div className="w-4/5 m-auto mt-5">
       <p className="text-[#3D3D3D] mb-4">Create your account</p>
       <Form onFinish={onRegister} layout="vertical">
-        
         <Form.Item
           name="name"
           label="Name"
@@ -69,27 +70,33 @@ const Register = () => {
           rules={[{ required: true, message: "Please input your password!" }]}
           hasFeedback
         >
-          <Input.Password className={input_style} placeholder="Enter password" />
+          <Input.Password
+            className={input_style}
+            placeholder="Enter password"
+          />
         </Form.Item>
 
         <Form.Item
           name="confirmPassword"
           label="Confirm Password"
-          dependencies={['password']}
+          dependencies={["password"]}
           hasFeedback
           rules={[
             { required: true, message: "Please confirm your password!" },
             ({ getFieldValue }) => ({
               validator(_, value) {
-                if (!value || getFieldValue('password') === value) {
+                if (!value || getFieldValue("password") === value) {
                   return Promise.resolve();
                 }
-                return Promise.reject(new Error('Passwords do not match!'));
+                return Promise.reject(new Error("Passwords do not match!"));
               },
             }),
           ]}
         >
-          <Input.Password className={input_style} placeholder="Confirm password" />
+          <Input.Password
+            className={input_style}
+            placeholder="Confirm password"
+          />
         </Form.Item>
 
         <Button
@@ -113,7 +120,9 @@ const Register = () => {
       <div className="flex flex-col">
         <div onClick={onAuthGoogleItem} className={icon_style}>
           <FcGoogle size={20} />
-          <span className="text-[13px] text-[#3D3D3D] font-medium">Login with Google</span>
+          <span className="text-[13px] text-[#3D3D3D] font-medium">
+            Login with Google
+          </span>
         </div>
       </div>
     </div>
