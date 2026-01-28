@@ -1,5 +1,6 @@
 import BannerImg from "../../assets/img/01 1.png";
 import Dashboder from "../../components/dashbord";
+import Footer from "../../components/Footer/Footer";
 import Header from "../../components/Header/Header";
 
 const Home = () => {
@@ -46,6 +47,7 @@ const Home = () => {
         </div>
       </div>
       <Dashboder />
+      <Footer />
     </section>
   );
 };
