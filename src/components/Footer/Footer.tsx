@@ -157,26 +157,30 @@ const Footer = () => {
 
           <div>
             <h4 className="font-bold mb-4 text-[#3D3D3D]">Social Media</h4>
-            <div className="flex space-x-3 mb-6">
-              {["facebook", "instagram", "twitter", "linkedin", "union"].map(
-                (social) => (
-                  <a
-                    key={social}
-                    href="/"
-                    className="border border-[#46A358]/20 p-2 rounded-md hover:bg-[#46A358]/10 transition"
-                  >
-                    <img
-                      src={`/assets/icons/${social}.svg`}
-                      alt={social}
-                      className="w-4 h-4"
-                    />
-                  </a>
-                ),
-              )}
-            </div>
-            <h4 className="font-bold mb-4 text-[#3D3D3D]">We accept</h4>
-            <div className="flex items-center space-x-3">
-              <img src={Footer4} alt="Payments" className="h-6" />
+            <div className="flex flex-wrap space-y-6">
+              <div className="flex flex-wrap space-x-3">
+                {["facebook", "instagram", "twitter", "linkedin", "union"].map(
+                  (social) => (
+                    <a
+                      key={social}
+                      href="/"
+                      className="border border-[#46A358]/20 p-2 rounded-md hover:bg-[#46A358]/10 transition"
+                    >
+                      <img
+                        src={`/assets/icons/${social}.svg`}
+                        alt={social}
+                        className="w-4 h-4"
+                      />
+                    </a>
+                  ),
+                )}
+              </div>
+              <div>
+                <h4 className="font-bold mb-4 text-[#3D3D3D]">We accept</h4>
+                <div className="flex items-center space-x-3">
+                  <img src={Footer4} alt="Payments" className="h-6" />
+                </div>
+              </div>
             </div>
           </div>
         </div>
