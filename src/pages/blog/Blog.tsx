@@ -31,15 +31,12 @@ const Blog: React.FC = () => {
       try {
         setLoading(true);
 
-        const response = await axios.get(
-          "https://beckend-n14-soqt.vercel.app/api/user/blog",
-          {
-            headers: {
-              Authorization: "Bearer 64bebc1e2c6d3f056a8c85b7",
-            },
-            params: { search: "" },
+        const response = await axios.get("hapi/user/blog", {
+          headers: {
+            Authorization: "Bearer 64bebc1e2c6d3f056a8c85b7",
           },
-        );
+          params: { search: "" },
+        });
 
         const data = response.data?.data ?? [];
         setBlogs(data);
