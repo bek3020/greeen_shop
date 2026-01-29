@@ -17,7 +17,7 @@ interface BlogType {
   content: string;
 }
 
-const Blog: React.FC = () => {
+const Blogs: React.FC = () => {
   const [blogs, setBlogs] = useState<BlogType[]>([]);
   const [filteredBlogs, setFilteredBlogs] = useState<BlogType[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -30,26 +30,24 @@ const Blog: React.FC = () => {
     const fetchBlogs = async () => {
       try {
         setLoading(true);
-
-        const response = await axios.get("hapi/user/blog", {
-          headers: {
-            Authorization: "Bearer 64bebc1e2c6d3f056a8c85b7",
+        const response = await axios.get(
+          "https://beckend-n14-soqt.vercel.app/api/user/blog",
+          {
+            params: {
+              access_token: "64bebc1e2c6d3f056a8c85b7",
+              search: "",
+            },
           },
-          params: { search: "" },
-        });
-
-        const data = response.data?.data ?? [];
+        );
+        const data = response.data.data || [];
         setBlogs(data);
         setFilteredBlogs(data);
       } catch (error) {
-        console.error("Blog fetch error:", error);
-        setBlogs([]);
-        setFilteredBlogs([]);
+        console.error("Xatolik:", error);
       } finally {
         setLoading(false);
       }
     };
-
     fetchBlogs();
   }, []);
 
@@ -164,4 +162,4 @@ const Blog: React.FC = () => {
   );
 };
 
-export default Blog;
+export default Blogs;
