@@ -3,6 +3,7 @@ import { useQueryHandler } from "../../../hooks/useQuery";
 import { Skeleton } from "antd";
 import Card from "./card";
 import { useSearchParamsHandler } from "../../../hooks/paramsApi";
+import ProductsTitle from "./products_title";
 
 const Products = () => {
   const { getParam } = useSearchParamsHandler();
@@ -21,14 +22,19 @@ const Products = () => {
 
   if (isLoading) {
     return (
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        {Array.from({ length: 8 }).map((_, index) => (
-          <div key={index} className="flex flex-col gap-2">
-            <Skeleton.Image active className="!w-full !h-[300px]" />
-            <Skeleton.Input active className="!w-3/4 !h-[20px]" />
-            <Skeleton.Input active className="!w-1/2 !h-[24px]" />
-          </div>
-        ))}
+      <div>
+        <div className="mb-4">
+          <ProductsTitle />
+        </div>
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          {Array.from({ length: 8 }).map((_, index) => (
+            <div key={index} className="flex flex-col gap-2">
+              <Skeleton.Image active className="!w-full !h-[300px]" />
+              <Skeleton.Input active className="!w-3/4 !h-[20px]" />
+              <Skeleton.Input active className="!w-1/2 !h-[24px]" />
+            </div>
+          ))}
+        </div>
       </div>
     );
   }
@@ -38,18 +44,23 @@ const Products = () => {
   }
 
   return (
-    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-      {data?.map((value) => (
-        <Card
-          key={value._id}
-          id={value._id}
-          main_image={value.main_image}
-          title={value.title}
-          price={value.price}
-          discount={value.discount}
-          discount_price={value.discount_price}
-        />
-      ))}
+    <div>
+      <div className="mb-4">
+        <ProductsTitle />
+      </div>
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        {data?.map((value) => (
+          <Card
+            key={value._id}
+            id={value._id}
+            main_image={value.main_image}
+            title={value.title}
+            price={value.price}
+            discount={value.discount}
+            discount_price={value.discount_price}
+          />
+        ))}
+      </div>
     </div>
   );
 };
