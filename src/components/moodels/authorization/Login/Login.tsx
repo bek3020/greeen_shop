@@ -1,7 +1,5 @@
-import React from "react";
 import { Form, Input, Button, message } from "antd";
 import { FcGoogle } from "react-icons/fc";
-
 import { useLoginMutation } from "../../../../hooks/useQuery/useQueryAction";
 import { useReduxDispatch } from "../../../../hooks/useRedux";
 import { setUser } from "../../../../redux/user-slice";
