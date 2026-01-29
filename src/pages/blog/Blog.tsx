@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Eye, MessageCircle, Heart, ArrowUpRight } from "lucide-react";
-import { Input, Skeleton, Empty,  Tag } from "antd";
+import { Input, Skeleton, Empty, Tag } from "antd";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 
@@ -30,24 +30,29 @@ const Blog: React.FC = () => {
     const fetchBlogs = async () => {
       try {
         setLoading(true);
+
         const response = await axios.get(
           "https://beckend-n14-soqt.vercel.app/api/user/blog",
           {
-            params: {
-              access_token: "64bebc1e2c6d3f056a8c85b7",
-              search: "",
+            headers: {
+              Authorization: "Bearer 64bebc1e2c6d3f056a8c85b7",
             },
+            params: { search: "" },
           },
         );
-        const data = response.data.data || [];
+
+        const data = response.data?.data ?? [];
         setBlogs(data);
         setFilteredBlogs(data);
       } catch (error) {
-        console.error("Xatolik:", error);
+        console.error("Blog fetch error:", error);
+        setBlogs([]);
+        setFilteredBlogs([]);
       } finally {
         setLoading(false);
       }
     };
+
     fetchBlogs();
   }, []);
 
