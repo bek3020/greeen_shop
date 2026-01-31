@@ -35,7 +35,8 @@ const Header = () => {
       onClick: () => navigate('/profile'),
     },
     {
-      type: 'divider',
+      key: 'divider',
+      type: 'divider' as const,
     },
     {
       key: 'logout',
