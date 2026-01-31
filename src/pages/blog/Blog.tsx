@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { Eye, MessageCircle, Heart, ArrowUpRight, Calendar, User } from "lucide-react";
-import { Input, Skeleton, Empty, Tag } from "antd";
+import { Eye, MessageCircle, Heart, Calendar, User } from "lucide-react";
+import { Input, Empty, Card } from "antd";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 
 const { Search } = Input;
+const { Meta } = Card;
 
 interface BlogType {
   _id: string;
@@ -175,16 +176,11 @@ const Blogs: React.FC = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {loading ? (
             Array.from({ length: 6 }).map((_, idx) => (
-              <div
+              <Card
                 key={idx}
-                className="bg-white p-6 rounded-2xl border border-gray-100"
-              >
-                <Skeleton
-                  active
-                  title={{ width: "90%" }}
-                  paragraph={{ rows: 3 }}
-                />
-              </div>
+                loading={true}
+                style={{ width: '100%' }}
+              />
             ))
           ) : filteredBlogs.length === 0 ? (
             <div className="col-span-full py-20 text-center">
@@ -192,68 +188,58 @@ const Blogs: React.FC = () => {
             </div>
           ) : (
             filteredBlogs.map((blog) => (
-              <article
+              <Card
                 key={blog._id}
-                onClick={() => handleBlogClick(blog._id)}
-                className="group relative bg-white rounded-2xl border border-gray-100 hover:border-[#46A358]/20 hover:shadow-[0_20px_50px_rgba(70,163,88,0.1)] transition-all duration-500 cursor-pointer overflow-hidden"
-              >
-                {/* Blog Image */}
-                <div className="relative h-48 overflow-hidden">
+                hoverable
+                style={{ width: '100%' }}
+                cover={
                   <img
-                    src={blog.image || "https://via.placeholder.com/400x250?text=GreenShop+Blog"}
                     alt={blog.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    src={blog.image || "https://via.placeholder.com/400x250?text=GreenShop+Blog"}
+                    style={{ height: 200, objectFit: 'cover' }}
                   />
-                  <div className="absolute top-4 left-4">
-                    <Tag
-                      color="green"
-                      className="border-none bg-white/90 text-[#46A358] font-semibold"
-                    >
-                      Maqola
-                    </Tag>
-                  </div>
-                </div>
-
-                {/* Blog Content */}
-                <div className="p-6">
-                  <div className="flex items-center gap-4 text-gray-400 text-xs mb-3">
-                    <span className="flex items-center gap-1">
-                      <Calendar size={12} />
-                      {formatDate(blog.created_at)}
-                    </span>
-                    <span className="flex items-center gap-1">
-                      <User size={12} />
-                      {blog.created_by}
-                    </span>
-                  </div>
-
-                  <h2 className="text-xl font-bold text-gray-800 mb-3 line-clamp-2 group-hover:text-[#46A358] transition-colors leading-tight">
-                    {blog.title}
-                  </h2>
-
-                  <p className="text-gray-500 text-sm leading-relaxed mb-4 line-clamp-3">
-                    {truncateText(stripHtml(blog.content), 140)}
-                  </p>
-
-                  <div className="flex justify-between items-center pt-4 border-t border-gray-50">
-                    <div className="flex items-center gap-4 text-gray-400">
-                      <span className="flex items-center gap-1 text-xs">
-                        <Eye size={14} /> {blog.views || 0}
-                      </span>
-                      <span className="flex items-center gap-1 text-xs">
-                        <MessageCircle size={14} /> 0
-                      </span>
-                      <span className="flex items-center gap-1 text-xs">
-                        <Heart size={14} /> {blog.reaction_length || 0}
-                      </span>
+                }
+                actions={[
+                  <div key="views" className="flex items-center justify-center gap-1 text-gray-500">
+                    <Eye size={16} />
+                    <span>{blog.views || 0}</span>
+                  </div>,
+                  <div key="comments" className="flex items-center justify-center gap-1 text-gray-500">
+                    <MessageCircle size={16} />
+                    <span>0</span>
+                  </div>,
+                  <div key="likes" className="flex items-center justify-center gap-1 text-gray-500">
+                    <Heart size={16} />
+                    <span>{blog.reaction_length || 0}</span>
+                  </div>,
+                ]}
+                onClick={() => handleBlogClick(blog._id)}
+              >
+                <Meta
+                  title={
+                    <div className="line-clamp-2 text-lg font-bold text-gray-800 hover:text-[#46A358] transition-colors">
+                      {blog.title}
                     </div>
-
-                    <button className="w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center text-[#46A358] group-hover:bg-[#46A358] group-hover:text-white transition-all">
-                      <ArrowUpRight size={18} />
-                    </button>
-                  </div>
-                </div>
-              </article>
+                  }
+                  description={
+                    <div>
+                      <div className="flex items-center gap-4 text-gray-400 text-xs mb-3">
+                        <span className="flex items-center gap-1">
+                          <Calendar size={12} />
+                          {formatDate(blog.created_at)}
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <User size={12} />
+                          {blog.created_by}
+                        </span>
+                      </div>
+                      <p className="text-gray-500 text-sm leading-relaxed line-clamp-3">
+                        {truncateText(stripHtml(blog.content), 140)}
+                      </p>
+                    </div>
+                  }
+                />
+              </Card>
             ))
           )}
         </div>
