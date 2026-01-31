@@ -1,3 +1,4 @@
+
 export interface AuthType {
   billing_address: {
     country: string;
@@ -29,12 +30,11 @@ export interface AuthType {
   surname: string;
   user_type: string;
   username: string;
-  wishlist: string[]; 
+  wishlist: string[];
   _id: string;
 }
 
-export interface CategoryType{
-
+export interface CategoryType {
   count: number;
   created_at: string;
   created_by: string;
@@ -43,61 +43,57 @@ export interface CategoryType{
   _id: string;
 }
 
-export interface QueryType<T>{  
-  isLoading: boolean;
-  isError: boolean;
-  data: T;
-}
 
-export interface DiscoutFlowerType{
+export interface DiscoutFlowerType {
   discoount_up_to: number;
   id: number;
   poster_image_url: string;
   title: string;
 }
 
-
-
 export interface ProductType {
   _id: string;
+  id?: string; // Redux uchun
   title: string;
   price: number;
   main_image: string;
-
   discount: boolean;
   discount_price?: number;
-
   short_description: string;
   description: string;
-
   detailed_images: string[];
-
   rate: number;
   views: number;
-
-  tags: [];
-  comments: [];
-
+  tags: string[]; // [] emas, string[] bo'lishi shart
+  comments: string[];
   sold_times: number;
-
   created_by: string;
   created_at: string;
-
   category: string;
-
   count?: number;
-  userPrice?: number;
 }
 
+export interface DataType<T> {
+  isLoading: boolean;
+  isError: boolean;
+  data: T | undefined;
+}
 
-
+export interface ProductsTypeLocal extends ProductType {
+  count: number;
+  userPrice: number;
+}
+export interface CartProduct extends Omit<ProductType, 'id'> {
+  id: string;
+}
 export interface BlogType {
   _id: string;
+  id?: string;
   title: string;
   content: string;
-  image: string;
-  createdAt: string;
-  updatedAt: string;
+  image?: string;
+  createdAt?: string;
+  updatedAt?: string;
   created_by: string;
   views: number;
   reaction_length: number;

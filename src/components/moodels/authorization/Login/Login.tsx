@@ -3,9 +3,9 @@ import { FcGoogle } from "react-icons/fc";
 import { useLoginMutation } from "../../../../hooks/useQuery/useQueryAction";
 import { useReduxDispatch } from "../../../../hooks/useRedux";
 import { setUser } from "../../../../redux/user-slice";
-import { setAuthorizationModalVisiblity } from "../../../../redux/modol-store";
 import type { AuthType } from "../../../../@types";
 import axios from "axios";
+import { setAuthorizationModalVisibility } from "../../../../redux/modol-store";
 interface LoginValues {
   email: string;
   password: string;
@@ -49,7 +49,7 @@ const Login: React.FC = () => {
           }),
         );
 
-        dispatch(setAuthorizationModalVisiblity());
+        dispatch(setAuthorizationModalVisibility());
         message.success("Xush kelibsiz!");
       },
       onError: (err: Error) => {

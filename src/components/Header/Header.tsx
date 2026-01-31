@@ -3,7 +3,8 @@ import { NavLink } from "react-router-dom";
 import { Drawer, Button } from "antd";
 import Logo from "../../assets/img/logo.png";
 import { useReduxDispatch } from "../../hooks/useRedux";
-import { setAuthorizationModalVisiblity } from "../../redux/modol-store";
+import { setAuthorizationModalVisibility } from "../../redux/modol-store";
+
 
 const Header = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -16,7 +17,9 @@ const Header = () => {
     <div className="py-5 border-b border-[#00800043]  mb-10">
       <div className="max-w-[1205px] mx-auto px-4">
         <div className="flex items-center justify-between">
-          <img src={Logo} alt="Logo" className="h-8" />
+          <a href="/">
+            <img src={Logo} alt="Logo" className="h-8" />
+          </a>
 
           <nav className="hidden sm:flex gap-4">
             <NavLink
@@ -41,11 +44,13 @@ const Header = () => {
             <button className="hover:text-green-500 transition-colors duration-300">
               <i className="fa-solid fa-magnifying-glass"></i>
             </button>
-            <button className="hover:text-green-500 transition-colors duration-300">
-              <i className="fa-solid fa-cart-shopping"></i>
-            </button>
+            <NavLink to="/shop">
+              <button className="hover:text-green-500 transition-colors duration-300">
+                <i className="fa-solid fa-cart-shopping"></i>
+              </button>
+            </NavLink>
             <button
-              onClick={() => dispatch(setAuthorizationModalVisiblity())}
+              onClick={() => dispatch(setAuthorizationModalVisibility())}
               className="flex items-center gap-2 bg-green-600 text-white px-4 py-2 rounded-md w-[100px] h-[35px] relative"
             >
               <i className="fa-solid fa-arrow-right-to-bracket"></i>
@@ -70,7 +75,7 @@ const Header = () => {
           closable={true}
           onClose={closeDrawer}
           open={drawerOpen}
-          bodyStyle={{ paddingTop: 0 }}
+          styles={{ body: { paddingTop: 0 } }}
         >
           <nav className="flex flex-col gap-3">
             <NavLink
@@ -100,11 +105,18 @@ const Header = () => {
               <button className="cursor-pointer hover:text-green-500  transition-colors duration-300">
                 <i className="fa-solid fa-magnifying-glass"></i>
               </button>
-              <button className="cursor-pointer hover:text-green-500  transition-colors duration-300">
-                <i className="fa-solid fa-cart-shopping"></i>
-              </button>
+              <NavLink to="/shop">
+                <button className="cursor-pointer hover:text-green-500  transition-colors duration-300">
+                  <i className="fa-solid fa-cart-shopping"></i>
+                </button>
+              </NavLink>
+              <NavLink to="/profile">
+                <button className="cursor-pointer hover:text-green-500  transition-colors duration-300">
+                  <i className="fa-solid fa-user"></i>
+                </button>
+              </NavLink>
               <button
-                onClick={() => dispatch(setAuthorizationModalVisiblity())}
+                onClick={() => dispatch(setAuthorizationModalVisibility())}
                 className="flex items-center gap-2 cursor-pointer bg-green-600  text-white px-4 py-2 rounded-md w-[100px] h-[35px] relative"
               >
                 <i className="fa-solid fa-arrow-right-to-bracket"></i>

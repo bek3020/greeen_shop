@@ -17,7 +17,7 @@ export const useAxios = () => {
 
   const request = ({ url, method = "GET", param, body }: AxiosType) => {
     return axios({
-      url: `${baseUrl}/${url}`, // API URL ni to'g'ri qo'shamiz
+      url: `${baseUrl}/${url}`, 
       method,
       headers: {
         "Content-Type": "application/json",

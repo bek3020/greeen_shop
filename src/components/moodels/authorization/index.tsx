@@ -1,17 +1,17 @@
 import { Modal } from "antd"
 import { useReduxDispatch, useReduxSelector } from "../../../hooks/useRedux"
-import { setAuthorizationModalVisiblity } from "../../../redux/modol-store"
 import { useState } from "react"
 import Login from "./Login/Login"
 import Register from "./Register/Register"
+import { setAuthorizationModalVisibility } from "../../../redux/modol-store"
 
 
 const AuthorizationModal = () => {
-    const { authorizationModalVisiblity } = useReduxSelector(state => state.modalSlice)
+    const { authorizationModalVisibility } = useReduxSelector(state => state.modal)
     const dispatch = useReduxDispatch()
     const [state, setState] = useState<string>('login')
   return (
-      <Modal open={authorizationModalVisiblity} footer={false}  onCancel={()=> dispatch(setAuthorizationModalVisiblity())}>
+      <Modal open={authorizationModalVisibility} footer={false}  onCancel={()=> dispatch(setAuthorizationModalVisibility())}>
           <div className="mt-10">
               <div className="flex items-center justify-center gap-4">
                   <div onClick={()=> setState('login')} className={`text-gray-400 text-2xl hover:text-gray-600 cursor-pointer ${state === "login" && "text-green-600"}`}>Login</div>

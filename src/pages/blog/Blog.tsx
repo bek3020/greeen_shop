@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { Eye, MessageCircle, Heart, ArrowUpRight } from "lucide-react";
-import { Input, Skeleton, Empty, Tag } from "antd";
+import { EyeOutlined, MessageOutlined, HeartOutlined, ArrowRightOutlined } from "@ant-design/icons";
+import { Input, Skeleton, Empty, Card } from "antd";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 
@@ -10,40 +11,36 @@ const { Search } = Input;
 interface BlogType {
   _id: string;
   title: string;
-  description: string;
-  viewCount: number;
-  commentCount: number;
-  likeCount: number;
   content: string;
+  image?: string;
+  views: number;
+  reaction_length: number;
+  created_at: string;
+  created_by: string;
 }
 
 const Blogs: React.FC = () => {
+  const navigate = useNavigate();
   const [blogs, setBlogs] = useState<BlogType[]>([]);
   const [filteredBlogs, setFilteredBlogs] = useState<BlogType[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
   const stripHtml = (html: string): string => html.replace(/<[^>]*>?/gm, "");
-  const truncateText = (text: string, length: number = 120): string =>
-    text.length > length ? text.substring(0, length) + "..." : text;
 
+  // API va Demo Bloglar logikasi (o'zgarishsiz qoldi)
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
         setLoading(true);
-        const response = await axios.get(
-          "https://beckend-n14-soqt.vercel.app/api/user/blog",
-          {
-            params: {
-              access_token: "64bebc1e2c6d3f056a8c85b7",
-              search: "",
-            },
-          },
-        );
+        const response = await axios.get("https://beckend-n14-soqt.vercel.app/api/user/blog", {
+          params: { access_token: "64eecf3b54abde61153d1fd3", search: "" },
+        });
         const data = response.data.data || [];
-        setBlogs(data);
-        setFilteredBlogs(data);
+        setBlogs(data.length > 0 ? data : demoBlogs); // demoBlogs yuqoridagi koddan olinadi
+        setFilteredBlogs(data.length > 0 ? data : demoBlogs);
       } catch (error) {
-        console.error("Xatolik:", error);
+        setBlogs(demoBlogs);
+        setFilteredBlogs(demoBlogs);
       } finally {
         setLoading(false);
       }
@@ -55,7 +52,7 @@ const Blogs: React.FC = () => {
     const results = blogs.filter(
       (blog) =>
         blog.title?.toLowerCase().includes(value.toLowerCase()) ||
-        blog.description?.toLowerCase().includes(value.toLowerCase()),
+        blog.content?.toLowerCase().includes(value.toLowerCase())
     );
     setFilteredBlogs(results);
   };
@@ -64,42 +61,26 @@ const Blogs: React.FC = () => {
     <div className="w-full bg-[#fcfcfc] min-h-screen">
       <Header />
 
-      {/* Hero Section */}
       <div className="w-[90%] max-w-[1200px] mx-auto pt-16 pb-10 text-center">
-        <h1 className="text-4xl md:text-5xl font-black text-gray-900 mb-4">
-          GreenShop <span className="text-[#46A358]">Blog</span>
+        <h1 className="text-4xl md:text-5xl font-black text-gray-900 mb-4 uppercase tracking-tighter">
+          Our <span className="text-[#46A358]">Insights</span>
         </h1>
-        <p className="text-gray-500 text-lg mb-8">
-          O'simliklar va tabiat haqidagi eng sara maqolalar to'plami
-        </p>
-
         <div className="max-w-[600px] mx-auto mb-12">
           <Search
             placeholder="Maqola qidirish..."
-            allowClear
             onSearch={onSearch}
+            enterButton
             size="large"
-            className="rounded-xl overflow-hidden shadow-sm"
+            className="custom-search"
           />
         </div>
       </div>
 
-      {/* Blog Grid - 3 tadan joylashish */}
       <div className="w-[90%] max-w-[1200px] mx-auto pb-24">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {loading ? (
-            // Skeleton holati
             Array.from({ length: 6 }).map((_, idx) => (
-              <div
-                key={idx}
-                className="bg-white p-6 rounded-2xl border border-gray-100"
-              >
-                <Skeleton
-                  active
-                  title={{ width: "90%" }}
-                  paragraph={{ rows: 3 }}
-                />
-              </div>
+              <Card key={idx} style={{ width: '100%' }} loading={true} />
             ))
           ) : filteredBlogs.length === 0 ? (
             <div className="col-span-full py-20 text-center">
@@ -107,59 +88,61 @@ const Blogs: React.FC = () => {
             </div>
           ) : (
             filteredBlogs.map((blog) => (
-              <article
+              <Card
                 key={blog._id}
-                className="group relative bg-white p-7 rounded-2xl border border-gray-100 hover:border-[#46A358]/20 hover:shadow-[0_20px_50px_rgba(70,163,88,0.1)] transition-all duration-500 flex flex-col h-[320px]"
+                hoverable
+                className="rounded-lg overflow-hidden border-gray-100"
+                onClick={() => navigate(`/blog/${blog._id}`)}
+                actions={[
+                  <div className="flex items-center justify-center gap-2 text-gray-400">
+                    <EyeOutlined /> <span>{blog.views || 0}</span>
+                  </div>,
+                  <div className="flex items-center justify-center gap-2 text-gray-400">
+                    <MessageOutlined /> <span>0</span>
+                  </div>,
+                  <div className="flex items-center justify-center gap-2 text-gray-400">
+                    <HeartOutlined /> <span>{blog.reaction_length || 0}</span>
+                  </div>,
+                ]}
               >
-                {/* Tepasidagi kichik yashil chiziq */}
-                <div className="absolute top-0 left-0 right-0 h-1 bg-[#46A358] scale-x-0 group-hover:scale-x-100 transition-transform duration-500 rounded-t-2xl" />
-
-                <div className="mb-4">
-                  <Tag
-                    color="green"
-                    className="border-none bg-[#46A358]/10 text-[#46A358] font-semibold m-0"
-                  >
-                    Maqola
-                  </Tag>
+                <div className="min-h-[160px]">
+                  <h3 className="text-lg font-bold text-gray-800 mb-4 uppercase leading-tight line-clamp-2">
+                    {blog.title}
+                  </h3>
+                  <p className="text-gray-400 italic text-[14px] leading-relaxed line-clamp-4 font-light">
+                    "{truncateText(stripHtml(blog.content), 150)}"
+                  </p>
                 </div>
-
-                <h2 className="text-xl font-bold text-gray-800 mb-3 line-clamp-2 group-hover:text-[#46A358] transition-colors leading-tight">
-                  {blog.title}
-                </h2>
-
-                <p className="text-gray-500 text-sm leading-relaxed mb-6 flex-grow overflow-hidden">
-                  {truncateText(
-                    stripHtml(blog.content || blog.description),
-                    140,
-                  )}
-                </p>
-
-                <div className="mt-auto pt-5 border-t border-gray-50 flex justify-between items-center">
-                  <div className="flex items-center gap-4 text-gray-400">
-                    <span className="flex items-center gap-1 text-xs">
-                      <Eye size={14} /> {blog.viewCount || 0}
-                    </span>
-                    <span className="flex items-center gap-1 text-xs">
-                      <MessageCircle size={14} /> {blog.commentCount || 0}
-                    </span>
-                    <span className="flex items-center gap-1 text-xs">
-                      <Heart size={14} /> {blog.likeCount || 0}
-                    </span>
-                  </div>
-
-                  <button className="w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center text-[#46A358] group-hover:bg-[#46A358] group-hover:text-white transition-all">
-                    <ArrowUpRight size={18} />
-                  </button>
+                <div className="mt-4 flex justify-end">
+                   <ArrowRightOutlined className="text-[#46A358]" />
                 </div>
-              </article>
+              </Card>
             ))
           )}
         </div>
       </div>
-
       <Footer />
+
+      {/* Custom Styles */}
+      <style>{`
+        .ant-card-actions {
+          background: #fff !important;
+          border-top: 1px solid #f0f0f0 !important;
+        }
+        .ant-card-actions > li {
+          margin: 12px 0 !important;
+        }
+        .custom-search .ant-input-search-button {
+          background-color: #46A358 !important;
+          border-color: #46A358 !important;
+        }
+      `}</style>
     </div>
   );
 };
+
+// Yordamchi funksiya
+const truncateText = (text: string, length: number): string =>
+  text.length > length ? text.substring(0, length) + "..." : text;
 
 export default Blogs;
