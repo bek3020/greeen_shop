@@ -20,7 +20,8 @@ import {
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import { useAxios } from "../../hooks/useAxios/useAxios";
-import { useReduxSelector } from "../../hooks/useRedux";
+import { useReduxSelector, useReduxDispatch } from "../../hooks/useRedux";
+import { setAuthorizationModalVisibility } from "../../redux/modol-store";
 
 const { TextArea } = Input;
 
@@ -48,6 +49,7 @@ const BlogDetail = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const request = useAxios();
+  const dispatch = useReduxDispatch();
   const { user } = useReduxSelector((state) => state.user);
 
   const [blog, setBlog] = useState<BlogType | null>(null);
@@ -306,7 +308,11 @@ const BlogDetail = () => {
           ) : (
             <div className="bg-gray-50 p-6 rounded-xl mb-8 text-center">
               <p className="text-gray-600 mb-4">Komment yozish uchun tizimga kiring</p>
-              <Button type="primary" className="bg-[#46A358] hover:bg-[#3b8a4a]">
+              <Button 
+                type="primary" 
+                className="bg-[#46A358] hover:bg-[#3b8a4a]"
+                onClick={() => dispatch(setAuthorizationModalVisibility())}
+              >
                 Kirish
               </Button>
             </div>

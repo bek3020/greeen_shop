@@ -1,8 +1,22 @@
-import { Form, Input, Button } from "antd";
+import { Form, Input, Button, message } from "antd";
 import { useRegisterMutation } from "../../../../hooks/useQuery/useQueryAction/index";
+import { useReduxDispatch } from "../../../../hooks/useRedux";
+import { setUser } from "../../../../redux/user-slice";
+import { setAuthorizationModalVisibility } from "../../../../redux/modol-store";
 import { FcGoogle } from "react-icons/fc";
+import type { AuthType } from "../../../../@types";
+
+interface RegisterResponse {
+  data?: {
+    user: AuthType;
+    token: string;
+  };
+  user?: AuthType;
+  token?: string;
+}
 
 const Register = () => {
+  const dispatch = useReduxDispatch();
   const input_style =
     "h-[40px] mt-2 border-[#46A358] hover:border-[#46A358] focus:border-[#46A358]";
   const { mutate, isPending } = useRegisterMutation();
@@ -21,15 +35,39 @@ const Register = () => {
     confirmPassword: string;
   }) => {
     if (values.password !== values.confirmPassword) {
-      console.log("Parollar mos emas!");
+      message.error("Parollar mos emas!");
       return;
     }
-    // name va surname ni ham yuboramiz
+    
     mutate({
       name: values.name,
       surname: values.surname,
       email: values.email,
       password: values.password,
+    }, {
+      onSuccess: (res: RegisterResponse) => {
+        const userData = res?.data?.user || res?.user;
+        const token = res?.data?.token || res?.token;
+
+        if (!userData) {
+          message.error("Ro'yxatdan o'tishda xatolik!");
+          return;
+        }
+
+        dispatch(
+          setUser({
+            user: userData,
+            token,
+          }),
+        );
+
+        dispatch(setAuthorizationModalVisibility());
+        message.success("Muvaffaqiyatli ro'yxatdan o'tdingiz!");
+      },
+      onError: (err: any) => {
+        const errorMsg = err?.response?.data?.message || "Ro'yxatdan o'tishda xatolik!";
+        message.error(errorMsg);
+      },
     });
   };
 
